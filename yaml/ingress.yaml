@@ -1,0 +1,23 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.bluemix.net/redirect-to-https: "True"
+  name: ingress
+spec:
+  tls:
+    - hosts:
+        - ibmdegla-k8.us-south.containers.appdomain.cloud
+      secretName: ibmdegla-k8
+  #backend:
+  #  serviceName: vue_client_service
+  #  servicePort: 3000
+  rules:
+    - host: ibmdegla-k8.us-south.containers.appdomain.cloud
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: flask-server-service
+              servicePort: 5000
