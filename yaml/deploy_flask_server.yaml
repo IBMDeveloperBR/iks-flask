@@ -1,0 +1,38 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: flask-server
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: flask-server-deployment
+        version: v1
+    spec:
+      containers:
+      - name: flask-server
+        image: us.icr.io/ibmdegla-cr-namespace/flask_server
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 5000
+        env:
+          - name: HOST_IP
+            value: ibmdegla-k8.us-south.containers.appdomain.cloud
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-server-service
+spec:
+  ports:
+  - port: 5000
+    targetPort: 5000
+    nodePort: 32000
+    name: http
+  type: NodePort
+  selector:
+    name: flask-server-deployment
