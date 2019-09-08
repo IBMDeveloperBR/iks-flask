@@ -1,5 +1,10 @@
 # iks-flask
-Criando uma aplicação Python Flask e implantando-a em um cluster IKS
+
+Criando uma aplicação Python Flask e implantando-a em um cluster IKS.
+
+- Gunicorn [OK]
+- Ingress [OK]
+- TLS [OK]
 
 ## Passos:
 
